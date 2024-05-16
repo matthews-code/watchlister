@@ -1,7 +1,7 @@
 /* Formatting */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -40,6 +40,7 @@ section > header {
 /* Elements */
 
 a {
+  color: rgba(255, 255, 255, 0.87);
   font-size: 1.5rem;
   font-weight: 300;
   text-decoration: none;

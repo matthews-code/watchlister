@@ -14,9 +14,7 @@ export const clerk = new Clerk(clerkPubKey);
 const authDiv = document.getElementById("auth-div");
 
 await clerk.load({
-  appearance: {
-    baseTheme: experimental__simple,
-  },
+  appearance: {},
 });
 
 if (clerk.user) {
