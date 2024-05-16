@@ -42,7 +42,6 @@ section > header {
 a {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #f9f9f9;
   text-decoration: none;
   letter-spacing: 1px;
 }
@@ -72,9 +71,15 @@ a:focus {
     background-color: #ffffff;
     color: #213547;
   }
-  a:hover {
+  a {
+    color: #213547;
+  }
+
+  a:hover,
+  a:focus {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

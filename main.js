@@ -1,6 +1,12 @@
 import "./style.css";
 import { Clerk } from "@clerk/clerk-js";
-import { dark } from "@clerk/themes";
+import {
+  dark,
+  experimental__simple,
+  experimental_createTheme,
+  neobrutalism,
+  shadesOfPurple,
+} from "@clerk/themes";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 export const clerk = new Clerk(clerkPubKey);
@@ -8,11 +14,8 @@ export const clerk = new Clerk(clerkPubKey);
 const authDiv = document.getElementById("auth-div");
 
 await clerk.load({
-  // appearance: {
-  //   baseTheme: dark,
-  // },
   appearance: {
-    elements: {},
+    baseTheme: experimental__simple,
   },
 });
 
