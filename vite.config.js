@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 export default {
   esbuild: {
     supported: {
@@ -5,6 +7,12 @@ export default {
     },
   },
   build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+        watchlist: resolve(__dirname, "watchlist/index.html"),
+      },
+    },
     target: "esnext",
   },
 };

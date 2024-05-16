@@ -3,17 +3,24 @@ import { Clerk } from "@clerk/clerk-js";
 import { dark } from "@clerk/themes";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+export const clerk = new Clerk(clerkPubKey);
 
-const clerk = new Clerk(clerkPubKey);
+const authDiv = document.getElementById("auth-div");
 
 await clerk.load({
+  // appearance: {
+  //   baseTheme: dark,
+  // },
   appearance: {
-    baseTheme: dark,
+    elements: {},
   },
 });
 
 if (clerk.user) {
-  document.getElementById("app").innerHTML = `
+  console.log("hello");
+  if (authDiv) authDiv.style.display = "none";
+
+  document.getElementById("user-button-div").innerHTML = `
     <div id="user-button"></div>
   `;
 
@@ -21,7 +28,7 @@ if (clerk.user) {
 
   clerk.mountUserButton(userButtonDiv);
 } else {
-  document.getElementById("auth-div").innerHTML = `
+  authDiv.innerHTML = `
     <div id="sign-in"></div>
   `;
 

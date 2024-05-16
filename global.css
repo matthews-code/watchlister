@@ -1,0 +1,81 @@
+/* Formatting */
+
+:root {
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #242424;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+section > header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem;
+}
+
+#auth-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: inherit;
+}
+
+/* Elements */
+
+a {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #f9f9f9;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+#user-button-div,
+.cl-avatarBox {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: auto 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Pseudo Selectors */
+
+a:hover,
+a:focus {
+  color: #cecece;
+}
+
+/* Media Queries */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    background-color: #ffffff;
+    color: #213547;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
