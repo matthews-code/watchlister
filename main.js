@@ -19,35 +19,35 @@ const mainDiv = document.getElementById("main-div");
 const emptyMovie = document.getElementById("no-movie-div");
 const moviesDiv = document.getElementById("movies-div");
 
-// const moviePlaceholder = [
-//   {
-//     Actors: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
-//     Awards: "Nominated for 1 Oscar. 39 wins & 81 nominations total",
-//     BoxOffice: "$623,357,910",
-//     Country: "United States",
-//     DVD: "22 Jun 2014",
-//     Director: "Joss Whedon",
-//     Genre: "Action, Sci-Fi",
-//     Language: "English, Russian",
-//     Metascore: "69",
-//     Plot: "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-//     Poster:
-//       "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-//     Production: "N/A",
-//     Rated: "PG-13",
-//     Released: "04 May 2012",
-//     Response: "True",
-//     Runtime: "143 min",
-//     Title: "The Avengers",
-//     Type: "movie",
-//     Website: "N/A",
-//     Writer: "Joss Whedon, Zak Penn",
-//     Year: "2012",
-//     imdbID: "tt0848228",
-//     imdbRating: "8.0",
-//     imdbVotes: "1,457,886",
-//   },
-// ];
+const moviePlaceholder = [
+  {
+    Actors: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
+    Awards: "Nominated for 1 Oscar. 39 wins & 81 nominations total",
+    BoxOffice: "$623,357,910",
+    Country: "United States",
+    DVD: "22 Jun 2014",
+    Director: "Joss Whedon",
+    Genre: "Action, Sci-Fi",
+    Language: "English, Russian",
+    Metascore: "69",
+    Plot: "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+    Production: "N/A",
+    Rated: "PG-13",
+    Released: "04 May 2012",
+    Response: "True",
+    Runtime: "143 min",
+    Title: "The Avengers: Age of Ultron Age of Ultron",
+    Type: "movie",
+    Website: "N/A",
+    Writer: "Joss Whedon, Zak Penn",
+    Year: "2012",
+    imdbID: "tt0848228",
+    imdbRating: "8.0",
+    imdbVotes: "1,457,886",
+  },
+];
 
 await clerk.load({
   // appearance: {
@@ -80,7 +80,10 @@ if (clerk.user) {
 searchBtn.addEventListener("click", () => {
   if (movieInput.value) {
     searchMovie(movieInput.value);
-    updateHTML(moviePlaceholder);
+    // mainDiv.classList.remove("no-movies");
+    // emptyMovie.style.display = "none";
+    // moviesDiv.style.display = "flex";
+    // updateHTML(moviePlaceholder);
   }
 });
 
@@ -112,6 +115,7 @@ async function getMovieInfo(moviesArr) {
 }
 
 function updateHTML(movies) {
+  console.log(movies);
   let html = "";
   movies.forEach((movie) => {
     html += `
@@ -123,13 +127,12 @@ function updateHTML(movies) {
       />
       <div class="movie-info-div">
         <div class="movie-title">
-          <h2>${movie.Title}</h2>
-          <div>
-            <span style="color: #ffd254"
-              ><i class="fa-solid fa-star"></i>
+          <h2>${movie.Title + "&nbsp;&nbsp;"} 
+            <span style="color: #ffd254">
+              <i class="fa-solid fa-star"></i>
             </span>
-            8.1
-          </div>
+            ${movie.imdbRating}
+          </h2>
         </div>
         <div class="movie-subinfo">
           <p>${movie.Runtime}</p>
@@ -146,7 +149,7 @@ function updateHTML(movies) {
         </p>
       </div>
     </div>
-    <hr style="margin: 2.25em 0" />
+    <hr />
     `;
   });
   moviesDiv.innerHTML = html;

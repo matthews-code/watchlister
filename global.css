@@ -32,16 +32,17 @@ main {
 
 #nav {
   display: flex;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 0.75rem;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.75rem;
 }
 
 section > header {
   display: flex;
   height: 20%;
-  min-height: 240px;
+  min-height: 200px;
 }
 
 #main-div {
@@ -49,11 +50,12 @@ section > header {
   flex-grow: 1;
   position: relative;
   background-color: #f9fafb;
-  padding-top: 4em;
+  padding-top: 3em;
 }
 
 #movies-div {
   /* border: 1px solid red; */
+  /* margin: 0 1em; */
   flex-direction: column;
   color: black;
 }
@@ -67,17 +69,20 @@ section > header {
 
 .indiv-movie {
   display: flex;
-  gap: 2.5em;
+  /* gap: 2.5em; */
+  gap: 1em;
 }
 
 .indiv-movie > img {
-  width: 200px;
-  /* height: 100px; */
+  /* width: 200px; */
+  height: 200px;
+  display: none;
 }
 
 .def-width {
   /* border: 10px solid blue; */
-  width: 70%;
+  /* width: 70%; */
+  width: 92.5%;
   min-width: 320px;
   max-width: 1000px;
   margin: auto;
@@ -86,17 +91,21 @@ section > header {
 /* Elements */
 
 a {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.87);
   text-decoration: none;
   letter-spacing: 1px;
 }
 
+hr {
+  margin: 1em 0em;
+}
+
 #user-button-div,
 .cl-avatarBox {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   margin: auto 0;
 }
 
@@ -111,13 +120,25 @@ a {
   display: none;
 }
 
-.movie-info-div {
+/* .movie-info-div {
   padding-top: 1em;
-}
+} */
 
 .movie-subinfo {
+  margin: 0.5em 0;
   display: flex;
-  gap: 1.5em;
+  gap: 0.75em;
+  flex-wrap: wrap;
+}
+
+p {
+  font-size: small;
+}
+
+.movie-subinfo p {
+  display: block;
+  min-width: fit-content;
+  margin: 0;
 }
 
 .movie-subinfo > div {
@@ -130,7 +151,9 @@ a {
 }
 
 .movie-title > h2 {
+  min-width: fit-content;
   font-weight: 600;
+  font-size: large;
   margin: 0 0.75em 0 0;
 }
 
@@ -139,7 +162,7 @@ a {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
 }
 
 #no-movie-div {
@@ -226,3 +249,7 @@ a:focus {
     background-color: #f9f9f9;
   }
 }
+
+/* @media  {
+  
+} */
