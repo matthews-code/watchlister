@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script
+      src="https://kit.fontawesome.com/19cde594b6.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -18,9 +22,29 @@
       <!-- Signed in -->
       <section id="main-section">
         <header>
-          <a href="/watchlist/">My watchlist </a>
-          <div id="user-button-div"></div>
+          <div id="nav">
+            <a href="/watchlist/">My watchlist</a>
+            <div id="user-button-div"></div>
+          </div>
+          <div class="def-width">
+            <h1>Find your film</h1>
+          </div>
         </header>
+        <div id="main-div" class="no-movies">
+          <div id="search-bar" class="def-width">
+            <input
+              id="movies-input"
+              type="text"
+              placeholder="Search for a film"
+            />
+            <button id="search-button">Search</button>
+          </div>
+          <div id="no-movie-div">
+            <i class="fa-solid fa-film fa-7x"></i>
+            <h2>Start exploring</h2>
+          </div>
+          <div id="movies-div" class="def-width" style="display: none"></div>
+        </div>
       </section>
     </main>
     <script type="module" src="main.js"></script>
