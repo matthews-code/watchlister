@@ -27,7 +27,7 @@ main {
   /* border: 1px solid red; */
   flex-direction: column;
   position: relative;
-  height: inherit;
+  height: 100vh;
 }
 
 #nav {
@@ -41,7 +41,7 @@ main {
 
 section > header {
   display: flex;
-  height: 20%;
+  /* height: 20%; */
   min-height: 200px;
 }
 
@@ -75,7 +75,6 @@ section > header {
 
 .indiv-movie > img {
   /* width: 200px; */
-  height: 200px;
   display: none;
 }
 
@@ -166,7 +165,6 @@ p {
 }
 
 .movie-title > h2 {
-  min-width: fit-content;
   font-weight: 600;
   font-size: large;
   margin: 0 0.75em 0 0;
@@ -199,7 +197,6 @@ h1 {
 
 #search-button {
   width: 20%;
-  min-width: fit-content;
   background-color: #f5f5f5;
   border: 1.5px solid rgb(199, 199, 199);
   border-top-right-radius: 10px;
@@ -263,6 +260,96 @@ a:focus {
   }
 }
 
-/* @media  {
-  
-} */
+@media (min-width: 480px) {
+  .indiv-movie > img {
+    height: 150px;
+    display: inline;
+  }
+}
+
+@media (min-width: 768px) {
+  #search-bar {
+    top: -1.5rem;
+  }
+
+  input {
+    height: 3rem;
+    font-size: large;
+  }
+
+  #search-button {
+    width: 15%;
+    font-size: large;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  .movie-title > h2 {
+    font-size: larger;
+  }
+
+  a {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: medium;
+  }
+
+  #user-button-div,
+  .cl-avatarBox {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  #main-div {
+    padding-top: 4em;
+  }
+
+  .indiv-movie > img {
+    height: 200px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #search-button {
+    width: 15%;
+    font-size: large;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .movie-title > h2 {
+    font-size: x-large;
+  }
+
+  a {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: large;
+  }
+
+  #user-button-div,
+  .cl-avatarBox {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .indiv-movie > img {
+    height: 250px;
+  }
+
+  hr {
+    margin: 1.5rem 0;
+  }
+
+  section > header {
+    min-height: 250px;
+  }
+}

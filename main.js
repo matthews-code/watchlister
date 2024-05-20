@@ -81,10 +81,6 @@ if (searchBtn)
   searchBtn.addEventListener("click", () => {
     if (movieInput.value) {
       searchMovie(movieInput.value);
-      // mainDiv.classList.remove("no-movies");
-      // emptyMovie.style.display = "none";
-      // moviesDiv.style.display = "flex";
-      // updateHTML(moviePlaceholder);
     }
   });
 

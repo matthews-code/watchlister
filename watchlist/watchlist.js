@@ -61,9 +61,9 @@ function updateHTML(movies) {
         <p class="movie-desc">
           ${movie.Plot}
         </p>
-        ${index !== movies.length - 1 ? "<hr />" : ""}
       </div>
       </div>
+      ${index !== movies.length - 1 ? "<hr />" : ""}
     `;
   });
   moviesDiv.innerHTML = html;
@@ -87,8 +87,14 @@ document.addEventListener("click", (e) => {
       moviesDiv.style.display = "none";
       localStorage.removeItem("movieIDArr");
     } else {
-      e.target.parentNode.parentNode.parentNode.parentNode.style.display =
-        "none";
+      const movieDiv = e.target.parentNode.parentNode.parentNode.parentNode;
+      const hrEl = movieDiv.nextElementSibling;
+
+      if (hrEl) {
+        hrEl.style.display = "none";
+      }
+
+      movieDiv.style.display = "none";
       watchListArr = JSON.stringify(watchListArr);
       localStorage.setItem("movieIDArr", watchListArr);
     }
