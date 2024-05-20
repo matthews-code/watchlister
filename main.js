@@ -77,15 +77,16 @@ if (clerk.user) {
   clerk.mountSignIn(signInDiv);
 }
 
-searchBtn.addEventListener("click", () => {
-  if (movieInput.value) {
-    searchMovie(movieInput.value);
-    // mainDiv.classList.remove("no-movies");
-    // emptyMovie.style.display = "none";
-    // moviesDiv.style.display = "flex";
-    // updateHTML(moviePlaceholder);
-  }
-});
+if (searchBtn)
+  searchBtn.addEventListener("click", () => {
+    if (movieInput.value) {
+      searchMovie(movieInput.value);
+      // mainDiv.classList.remove("no-movies");
+      // emptyMovie.style.display = "none";
+      // moviesDiv.style.display = "flex";
+      // updateHTML(moviePlaceholder);
+    }
+  });
 
 async function searchMovie(title) {
   const res = await fetch(
@@ -93,11 +94,17 @@ async function searchMovie(title) {
   );
   const data = await res.json();
 
-  mainDiv.classList.remove("no-movies");
-  emptyMovie.style.display = "none";
-  moviesDiv.style.display = "flex";
-
-  getMovieInfo(data.Search);
+  if (!data.Error) {
+    mainDiv.classList.remove("no-movies");
+    emptyMovie.style.display = "none";
+    moviesDiv.style.display = "flex";
+    getMovieInfo(data.Search);
+  } else {
+    emptyMovie.innerHTML = `
+      <i class="fa-regular fa-folder-open fa-7x"></i>
+      <h2>No Movie Found</h2>
+    `;
+  }
 }
 
 async function getMovieInfo(moviesArr) {
@@ -115,7 +122,8 @@ async function getMovieInfo(moviesArr) {
 }
 
 function updateHTML(movies) {
-  console.log(movies);
+  const watchListArr = JSON.parse(localStorage.getItem("movieIDArr"));
+
   let html = "";
   movies.forEach((movie, index) => {
     html += `
@@ -138,10 +146,14 @@ function updateHTML(movies) {
           <p>${movie.Runtime}</p>
           <p>${movie.Genre}</p>
           <div>
-            <p class="add-to-watchlist" tabindex="0">
-              <i class="fa-solid fa-circle-plus fa-lg"></i>
+          ${
+            watchListArr && watchListArr.includes(movie.imdbID)
+              ? `<p style="color: grey;">Added</p>`
+              : `<p class="add-to-watchlist" tabindex="0" data-movie-id="${movie.imdbID}">
+              <i class="fa-solid fa-circle-plus fa-lg" data-movie-id="${movie.imdbID}"></i>
               Watchlist
-            </p>
+            </p>`
+          }
           </div>
         </div>
         <p class="movie-desc">
@@ -154,3 +166,17 @@ function updateHTML(movies) {
   });
   moviesDiv.innerHTML = html;
 }
+
+document.addEventListener("click", (e) => {
+  const movieId = e.target.dataset.movieId;
+  if (movieId) {
+    let watchListArr = localStorage.getItem("movieIDArr")
+      ? JSON.parse(localStorage.getItem("movieIDArr"))
+      : [];
+    watchListArr.push(movieId);
+    watchListArr = JSON.stringify(watchListArr);
+    localStorage.setItem("movieIDArr", watchListArr);
+
+    e.target.parentElement.innerHTML = `<p style="color: grey;">Added</p>`;
+  }
+});
