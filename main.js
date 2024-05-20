@@ -117,7 +117,7 @@ async function getMovieInfo(moviesArr) {
 function updateHTML(movies) {
   console.log(movies);
   let html = "";
-  movies.forEach((movie) => {
+  movies.forEach((movie, index) => {
     html += `
     <div class="indiv-movie">
       <img
@@ -149,7 +149,7 @@ function updateHTML(movies) {
         </p>
       </div>
     </div>
-    <hr />
+    ${index !== movies.length - 1 ? "<hr />" : ""}
     `;
   });
   moviesDiv.innerHTML = html;
