@@ -89,7 +89,7 @@ async function searchMovie(title) {
     emptyMovie.style.display = "none";
     moviesDiv.style.display = "flex";
 
-    localStorage.setItem("totalPages", data.totalResults);
+    localStorage.setItem("totalPages", Math.ceil(data.totalResults / 10));
 
     getMovieInfo(data.Search);
   } else {
@@ -126,10 +126,13 @@ function setPageDiv() {
 
   if (currPage === "1") {
     document.getElementById("prev-btn").setAttribute("disabled", "disabled");
-  } else if (currPage === totalPages) {
-    document.getElementById("next-btn").setAttribute("disabled", "disabled");
   } else {
     document.getElementById("prev-btn").removeAttribute("disabled");
+  }
+
+  if (currPage === totalPages) {
+    document.getElementById("next-btn").setAttribute("disabled", "disabled");
+  } else {
     document.getElementById("next-btn").removeAttribute("disabled");
   }
 
@@ -137,17 +140,23 @@ function setPageDiv() {
 }
 
 function updateHTML(movies) {
+  console.log(movies);
+
   const watchListArr = JSON.parse(localStorage.getItem("movieIDArr"));
 
   let html = "";
   movies.forEach((movie, index) => {
     html += `
     <div class="indiv-movie">
-      <img
-        class="movie-poster"
-        src="${movie.Poster}"
-        alt="Movie poster for ${movie.Title}"
-      />
+    ${
+      !(movie.Poster === "N/A")
+        ? `<img
+    class="movie-poster"
+    src="${movie.Poster}"
+    alt="Movie poster for ${movie.Title}"
+    />`
+        : ``
+    }
       <div class="movie-info-div">
         <div class="movie-title">
           <h2>${movie.Title + "&nbsp;&nbsp;"} 
