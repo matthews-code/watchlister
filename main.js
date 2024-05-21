@@ -9,7 +9,7 @@ import {
 } from "@clerk/themes";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-export const clerk = new Clerk(clerkPubKey);
+const clerk = new Clerk(clerkPubKey);
 
 const authDiv = document.getElementById("auth-div");
 const mainSection = document.getElementById("main-section");
@@ -18,36 +18,6 @@ const searchBtn = document.getElementById("search-button");
 const mainDiv = document.getElementById("main-div");
 const emptyMovie = document.getElementById("no-movie-div");
 const moviesDiv = document.getElementById("movies-div");
-
-const moviePlaceholder = [
-  {
-    Actors: "Robert Downey Jr., Chris Evans, Scarlett Johansson",
-    Awards: "Nominated for 1 Oscar. 39 wins & 81 nominations total",
-    BoxOffice: "$623,357,910",
-    Country: "United States",
-    DVD: "22 Jun 2014",
-    Director: "Joss Whedon",
-    Genre: "Action, Sci-Fi",
-    Language: "English, Russian",
-    Metascore: "69",
-    Plot: "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-    Production: "N/A",
-    Rated: "PG-13",
-    Released: "04 May 2012",
-    Response: "True",
-    Runtime: "143 min",
-    Title: "The Avengers: Age of Ultron Age of Ultron",
-    Type: "movie",
-    Website: "N/A",
-    Writer: "Joss Whedon, Zak Penn",
-    Year: "2012",
-    imdbID: "tt0848228",
-    imdbRating: "8.0",
-    imdbVotes: "1,457,886",
-  },
-];
 
 await clerk.load({
   // appearance: {
@@ -80,13 +50,29 @@ if (clerk.user) {
 if (searchBtn)
   searchBtn.addEventListener("click", () => {
     if (movieInput.value) {
+      localStorage.setItem("currPage", 1);
+      localStorage.setItem("movieInput", movieInput.value);
+      resetHtml();
       searchMovie(movieInput.value);
     }
   });
 
+if (localStorage.getItem("movieInput") && localStorage.getItem("currPage")) {
+  const title = localStorage.getItem("movieInput");
+  searchMovie(title);
+}
+
+function resetHtml() {
+  while (moviesDiv.children.length > 1) {
+    moviesDiv.removeChild(moviesDiv.firstChild);
+  }
+}
+
 async function searchMovie(title) {
+  const pageNum = localStorage.getItem("currPage");
+
   const res = await fetch(
-    `https://www.omdbapi.com/?apikey=1cb41e41&s=${title}`
+    `https://www.omdbapi.com/?apikey=1cb41e41&s=${title}&page=${pageNum}`
   );
   const data = await res.json();
 
@@ -94,6 +80,9 @@ async function searchMovie(title) {
     mainDiv.classList.remove("no-movies");
     emptyMovie.style.display = "none";
     moviesDiv.style.display = "flex";
+
+    localStorage.setItem("totalPages", data.totalResults);
+
     getMovieInfo(data.Search);
   } else {
     emptyMovie.innerHTML = `
@@ -114,7 +103,25 @@ async function getMovieInfo(moviesArr) {
     })
   );
 
+  setPageDiv();
   updateHTML(finalMoviesArr);
+}
+
+function setPageDiv() {
+  const currPage = localStorage.getItem("currPage");
+  const totalPages = localStorage.getItem("totalPages");
+  const pageText = document.getElementById("page-text");
+
+  if (currPage === "1") {
+    document.getElementById("prev-btn").setAttribute("disabled", "disabled");
+  } else if (currPage === totalPages) {
+    document.getElementById("next-btn").setAttribute("disabled", "disabled");
+  } else {
+    document.getElementById("prev-btn").removeAttribute("disabled");
+    document.getElementById("next-btn").removeAttribute("disabled");
+  }
+
+  pageText.innerHTML = `${currPage} of ${totalPages}`;
 }
 
 function updateHTML(movies) {
@@ -160,11 +167,38 @@ function updateHTML(movies) {
     ${index !== movies.length - 1 ? "<hr />" : ""}
     `;
   });
-  moviesDiv.innerHTML = html;
+
+  moviesDiv.innerHTML = html + moviesDiv.innerHTML;
+}
+
+function prevSearch() {
+  const title = localStorage.getItem("movieInput");
+  let page = localStorage.getItem("currPage");
+
+  page = parseInt(page) - 1;
+  localStorage.setItem("currPage", page);
+
+  window.scrollTo(0, 0);
+
+  searchMovie(title);
+}
+
+function nextSearch() {
+  const title = localStorage.getItem("movieInput");
+  let page = localStorage.getItem("currPage");
+
+  page = parseInt(page) + 1;
+  localStorage.setItem("currPage", page);
+
+  window.scrollTo(0, 0);
+
+  searchMovie(title);
 }
 
 document.addEventListener("click", (e) => {
   const movieId = e.target.dataset.movieId;
+  const pageId = e.target.dataset.pageId;
+
   if (movieId) {
     let watchListArr = localStorage.getItem("movieIDArr")
       ? JSON.parse(localStorage.getItem("movieIDArr"))
@@ -174,5 +208,12 @@ document.addEventListener("click", (e) => {
     localStorage.setItem("movieIDArr", watchListArr);
 
     e.target.parentElement.innerHTML = `<p style="color: grey;">Added</p>`;
+  } else if (pageId) {
+    resetHtml();
+    if (pageId === "prev") {
+      prevSearch();
+    } else {
+      nextSearch();
+    }
   }
 });

@@ -1,10 +1,42 @@
-import { clerk } from "../main";
+import { Clerk } from "@clerk/clerk-js";
 
-// console.log(clerk.user);
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+export const clerk = new Clerk(clerkPubKey);
+
+const authDiv = document.getElementById("auth-div");
+const mainSection = document.getElementById("main-section");
 const mainDiv = document.getElementById("main-div");
 const moviesDiv = document.getElementById("movies-div");
 const emptyMovie = document.getElementById("no-movie-div");
 let watchListArr = JSON.parse(localStorage.getItem("movieIDArr"));
+
+await clerk.load({
+  // appearance: {
+  //   baseTheme: neobrutalism,
+  // },
+});
+
+if (clerk.user) {
+  if (mainSection) mainSection.style.display = "flex";
+  if (authDiv) authDiv.style.display = "none";
+
+  document.getElementById("user-button-div").innerHTML = `
+    <div id="user-button"></div>
+  `;
+
+  const userButtonDiv = document.getElementById("user-button");
+
+  clerk.mountUserButton(userButtonDiv);
+} else {
+  if (mainSection) mainSection.style.display = "none";
+  authDiv.innerHTML = `
+    <div id="sign-in"></div>
+  `;
+
+  const signInDiv = document.getElementById("sign-in");
+
+  clerk.mountSignIn(signInDiv);
+}
 
 async function getMovieInfo(moviesArr) {
   mainDiv.classList.remove("no-movies");

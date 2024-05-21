@@ -42,7 +42,7 @@
             <h2>Start exploring</h2>
           </div>
           <div id="movies-div" class="def-width" style="display: flex">
-            <div class="indiv-movie">
+            <!-- <div class="indiv-movie">
               <img
                 class="movie-poster"
                 src="https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
@@ -458,17 +458,14 @@
                 </p>
               </div>
             </div>
+            -->
             <div id="pagination">
-              <button class="page-btns">
-                <span style="color: black"
-                  ><i class="fa-solid fa-chevron-left"></i
-                ></span>
+              <button id="prev-btn" class="page-btns" data-page-id="prev">
+                <i class="fa-solid fa-chevron-left" data-page-id="prev"></i>
               </button>
-              <p>1 of 75</p>
-              <button class="page-btns">
-                <span style="color: black"
-                  ><i class="fa-solid fa-chevron-right"></i
-                ></span>
+              <p id="page-text"></p>
+              <button id="next-btn" class="page-btns" data-page-id="next">
+                <i class="fa-solid fa-chevron-right" data-page-id="next"></i>
               </button>
             </div>
           </div>
