@@ -52,10 +52,18 @@ if (searchBtn)
     if (movieInput.value) {
       localStorage.setItem("currPage", 1);
       localStorage.setItem("movieInput", movieInput.value);
+      document.getElementById("pagination").style.display = "none";
       resetHtml();
       searchMovie(movieInput.value);
     }
   });
+
+movieInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    searchBtn.click();
+  }
+});
 
 if (localStorage.getItem("movieInput") && localStorage.getItem("currPage")) {
   const title = localStorage.getItem("movieInput");
