@@ -197,8 +197,7 @@ h1 {
 
 #search-button {
   width: 20%;
-  display: inline-block;
-  /* width: min-content; */
+  min-width: fit-content;
   background-color: #f5f5f5;
   border: 1.5px solid rgb(199, 199, 199);
   border-top-right-radius: 10px;
