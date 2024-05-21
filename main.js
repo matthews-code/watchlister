@@ -108,6 +108,7 @@ async function getMovieInfo(moviesArr) {
 }
 
 function setPageDiv() {
+  document.getElementById("pagination").style.display = "flex";
   const currPage = localStorage.getItem("currPage");
   const totalPages = localStorage.getItem("totalPages");
   const pageText = document.getElementById("page-text");
@@ -210,6 +211,7 @@ document.addEventListener("click", (e) => {
     e.target.parentElement.innerHTML = `<p style="color: grey;">Added</p>`;
   } else if (pageId) {
     resetHtml();
+    document.getElementById("pagination").style.display = "none";
     if (pageId === "prev") {
       prevSearch();
     } else {
