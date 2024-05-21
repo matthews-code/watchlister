@@ -296,6 +296,10 @@ a:focus {
     height: 150px;
     display: inline;
   }
+
+  p {
+    font-size: small;
+  }
 }
 
 @media (min-width: 768px) {
