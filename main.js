@@ -93,9 +93,12 @@ async function searchMovie(title) {
 
     getMovieInfo(data.Search);
   } else {
+    moviesDiv.style.display = "none";
+    mainDiv.classList.add("no-movies");
+    emptyMovie.style.display = "block";
     emptyMovie.innerHTML = `
       <i class="fa-regular fa-folder-open fa-7x"></i>
-      <h2>No Movie Found</h2>
+      <h2>No movie found</h2>
     `;
   }
 }
