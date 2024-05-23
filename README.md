@@ -1,11 +1,10 @@
 # Movie Watchlist Progressive Web App
 This repository contains a simple progressive web app (PWA) for searching and saving movies using plain HTML, CSS, and JavaScript. 
-It also uses [Vite](https://vitejs.dev/) as a local development tool and the [OMDb API](https://www.omdbapi.com/) to retrieve movies. [Clerk](https://clerk.com/) was used for authentication.
+It also uses [Vite](https://vitejs.dev/) as a local development tool and the [OMDb API](https://www.omdbapi.com/) to retrieve movies.
 
 ## Features
-- Users are required to sign up and login before using the application.
 - Allows users to search movies using a simple interface.
-- Allowes users to save movies to their watchlist.
+- Allows users to save movies to their watchlist.
 - Works on both desktop and mobile devices.
 
 ## Usage
