@@ -1,51 +1,10 @@
 import "./style.css";
-import { Clerk } from "@clerk/clerk-js";
-import {
-  dark,
-  experimental__simple,
-  experimental_createTheme,
-  neobrutalism,
-  shadesOfPurple,
-} from "@clerk/themes";
 
-const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-const clerk = new Clerk(clerkPubKey);
-
-const authDiv = document.getElementById("auth-div");
-const mainSection = document.getElementById("main-section");
 const movieInput = document.getElementById("movies-input");
 const searchBtn = document.getElementById("search-button");
 const mainDiv = document.getElementById("main-div");
 const emptyMovie = document.getElementById("no-movie-div");
 const moviesDiv = document.getElementById("movies-div");
-
-await clerk.load({
-  // appearance: {
-  //   baseTheme: neobrutalism,
-  // },
-});
-
-if (clerk.user) {
-  if (mainSection) mainSection.style.display = "flex";
-  if (authDiv) authDiv.style.display = "none";
-
-  document.getElementById("user-button-div").innerHTML = `
-    <div id="user-button"></div>
-  `;
-
-  const userButtonDiv = document.getElementById("user-button");
-
-  clerk.mountUserButton(userButtonDiv);
-} else {
-  if (mainSection) mainSection.style.display = "none";
-  authDiv.innerHTML = `
-    <div id="sign-in"></div>
-  `;
-
-  const signInDiv = document.getElementById("sign-in");
-
-  clerk.mountSignIn(signInDiv);
-}
 
 if (searchBtn)
   searchBtn.addEventListener("click", () => {
@@ -80,7 +39,7 @@ async function searchMovie(title) {
   const pageNum = localStorage.getItem("currPage");
 
   const res = await fetch(
-    `https://www.omdbapi.com/?apikey=1cb41e41&s=${title}&page=${pageNum}`
+    `https://www.omdbapi.com/?apikey=1cb41e41&s=${title}&page=${pageNum}&type=movie`
   );
   const data = await res.json();
 
@@ -140,8 +99,6 @@ function setPageDiv() {
 }
 
 function updateHTML(movies) {
-  console.log(movies);
-
   const watchListArr = JSON.parse(localStorage.getItem("movieIDArr"));
 
   let html = "";
